@@ -1,12 +1,37 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import React from 'react';
+import { useState,useEffect } from 'react';
 import './Home.css'
 const Login = () => {
+  const [email,setEmail]=useState('');
+  const [password,setPassword]=useState('');
+  const welcomeText = "Welcome to Intelligent Assessment application!";
+  const Typewriter = ({ text }) => {
+    const [currentText, setCurrentText] = useState('');
+    const [currentIndex, setCurrentIndex] = useState(0);
+  
+    useEffect(() => {
+      let interval;
+    
+      if (currentIndex < text.length) {
+        interval = setInterval(() => {
+          setCurrentText((prevText) => prevText + text[currentIndex]);
+          setCurrentIndex((prevIndex) => prevIndex + 1);
+        }, 100);
+      }
+    
+      return () => clearInterval(interval);
+    }, [currentIndex, text]);
+    
+  
+    return <h1 style={{ color: 'black', font: 'revert-layer' }}>{currentText}</h1>;
+  };
   
   return (
     <section className="vh-100">
-      
+     
      
 <nav className="navbar navbar-expand-lg navbar-light bg-light">
   
@@ -34,7 +59,7 @@ const Login = () => {
       
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item">
-          <a className="nav-link" style={{fontSize:'1.2rem'}} href="#">Dashboard</a>
+          <a className="nav-link" style={{fontSize:'1.2rem',fontFamily:'sans-serif'}} href="#">Dashboard</a>
         </li>
       </ul>
 
@@ -48,11 +73,11 @@ const Login = () => {
           Login
         </button>
         <button type="button" className="btn btn-primary me-3">
-          Sign up for free
+          Sign up
         </button>
         <a
           className="btn btn-dark px-3"
-          href="https://github.com/adiabb05-1317/IntelligentAssessmentSystem"
+          href="https://github.com/adiabb05-1317/Intelligent-Assesement-project"
           role="button"
           ><i className="fab fa-github"></i
         ></a>
@@ -62,6 +87,8 @@ const Login = () => {
   </div>
   
 </nav>
+
+     <Typewriter text={welcomeText} />
 
       <div className="container-fluid h-custom">
         <div className="row d-flex justify-content-center align-items-center h-100">

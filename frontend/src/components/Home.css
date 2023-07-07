@@ -1,55 +1,15 @@
-.HomeContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Set the height to fit the entire viewport */
-  }
-  
-  .imageIntelligent {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
-  
-  .img-intelli {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5); /* Set the background color with transparency */
-  }
-  
-  .login-page {
-    background-color: rgba(255, 255, 255, 0.8); /* Set the background color with transparency */
-    padding: 20px;
-    border-radius: 5px;
-  }
-  
-  .login-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  
-  .divider:after,
+.divider:after,
 .divider:before {
-content: "";
-flex: 1;
-height: 1px;
-background: #eee;
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
 }
 .h-custom {
-height: calc(100% - 73px);
+  height: calc(100% - 73px);
 }
 @media (max-width: 450px) {
-.h-custom {
-height: 100%;
+  .h-custom {
+  height: 100%;
+  }
 }
-}
-  
-  

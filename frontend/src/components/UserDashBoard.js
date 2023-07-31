@@ -1,70 +1,126 @@
-import React from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBTable, MDBTableHead, MDBTableBody, MDBBtn, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarItem, MDBNavbarLink, MDBNavbarToggler, MDBCollapse } from 'mdb-react-ui-kit';
-
+import React from "react";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBCardBody,
+  MDBTable,
+  MDBTableHead,
+  MDBTableBody,
+  MDBBtn,
+  MDBNavbar,
+  MDBNavbarBrand,
+  MDBNavbarNav,
+  MDBNavbarItem,
+  MDBNavbarLink,
+  MDBNavbarToggler,
+  MDBCollapse,
+  MDBIcon,
+} from "mdb-react-ui-kit";
+import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 const UserDashboard = () => {
-  const userEmail = localStorage.getItem('userEmail'); // Get user email from localStorage token
+  const hist = useNavigate();
+  const token = localStorage.getItem("token"); // Get token from localStorage
+  const userEmail = jwtDecode(token).email; // Decode token and get userEmail
 
   const previousTests = [
-    { id: 1, language: 'Java', score: 90 },
-    { id: 2, language: 'Python', score: 85 },
+    { id: 1, language: "Java", score: 90 },
+    { id: 2, language: "Python", score: 85 },
   ];
-  const handleLogout=()=>{
-    localStorage.removeItem('userEmail');
-    window.location.href='/';
-  }
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  };
+  const handleTest = (subject) => () => {
+    hist(`/InstructionPage/${subject}`);
+  };
 
   return (
     <div>
-      <MDBNavbar expand='lg' dark bgColor='dark'>
+      <MDBNavbar expand="lg" dark bgColor="dark">
         <MDBContainer fluid>
-          <MDBNavbarBrand href='#'>Dashboard</MDBNavbarBrand>
+          <MDBNavbarBrand href="#">Dashboard</MDBNavbarBrand>
           <MDBNavbarToggler
-            type='button'
-            data-target='#navbarButtonsExample'
-            aria-controls='navbarButtonsExample'
-            aria-expanded='false'
-            aria-label='Toggle navigation'
+            type="button"
+            data-target="#navbarButtonsExample"
+            aria-controls="navbarButtonsExample"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
           >
-            <span className='navbar-toggler-icon'></span>
+            <span className="navbar-toggler-icon"></span>
           </MDBNavbarToggler>
-          <MDBCollapse navbar id='navbarButtonsExample'>
-            <MDBNavbarNav className='me-auto mb-2 mb-lg-0'>
+          <MDBCollapse navbar id="navbarButtonsExample">
+            <MDBNavbarNav className="me-auto mb-2 mb-lg-0">
               <MDBNavbarItem>
-                <MDBNavbarLink active aria-current='page' href='#'>
+                <MDBNavbarLink active aria-current="page" href="#">
+                  <MDBIcon icon="home" className="me-2" />
                   Home
                 </MDBNavbarLink>
               </MDBNavbarItem>
               <MDBNavbarItem>
-                <MDBNavbarLink href='#'>Your Previous Tests</MDBNavbarLink>
+                <MDBNavbarLink href="#">
+                  <MDBIcon icon="file-alt" className="me-2" />
+                  Your Previous Tests
+                </MDBNavbarLink>
+              </MDBNavbarItem>
+              <MDBNavbarItem>
+                <MDBNavbarLink href="#">
+                  <MDBIcon icon="chart-bar" className="me-2" />
+                  Test Statistics
+                </MDBNavbarLink>
+              </MDBNavbarItem>
+              <MDBNavbarItem>
+                <MDBNavbarLink href="#">
+                  <MDBIcon icon="chart-pie" className="me-2" />
+                  Analysis
+                </MDBNavbarLink>
               </MDBNavbarItem>
             </MDBNavbarNav>
             <MDBNavbarNav right>
               <MDBNavbarItem>
-              <MDBBtn color="danger" onClick={handleLogout}>
+                <MDBBtn color="danger" onClick={handleLogout}>
                   Logout
                 </MDBBtn>
-                <MDBNavbarLink href='/'>{userEmail}</MDBNavbarLink> {/* Display user email */}
               </MDBNavbarItem>
+              {userEmail && (
+                <div className="d-flex align-items-center">
+                  <div className="me-2 font-weight-bold text-white">
+                    {userEmail}
+                  </div>
+                  <MDBNavbarLink href="/UserDashBoard.js">
+                    <MDBIcon icon="user" className="me-1" />
+                  </MDBNavbarLink>
+                </div>
+              )}
             </MDBNavbarNav>
           </MDBCollapse>
         </MDBContainer>
       </MDBNavbar>
-      <MDBContainer fluid className='p-3'>
+      <MDBContainer fluid className="p-3">
         <MDBRow>
-          <MDBCol md='6'>
+          <MDBCol md="6">
             <MDBCard>
               <MDBCardBody>
-                <h5 className='card-title'>Welcome to Your Dashboard!</h5>
-                <p className='card-text'>You can attempt tests in Java and Python.</p>
-                <MDBBtn color='primary'>Start Java Test</MDBBtn>
-                <MDBBtn color='primary'>Start Python Test</MDBBtn>
+                <h2 className="card-title">Welcome to Your Dashboard!</h2>
+                <p className="card-text">
+                  You can attempt tests in Java and Python.
+                  <br />
+                  Please read the instructions carefully before starting the
+                  test.
+                </p>
+                <MDBBtn color="primary" onClick={handleTest("java")}>
+                  Start Java Test
+                </MDBBtn>
+                <MDBBtn color="primary" onClick={handleTest("python")}>Start Python Test</MDBBtn>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
-          <MDBCol md='6'>
+          <MDBCol md="6">
             <MDBCard>
               <MDBCardBody>
-                <h5 className='card-title'>Previous Test Results</h5>
+                <h2 className="card-title">Previous Test Results</h2>
                 <MDBTable striped>
                   <MDBTableHead>
                     <tr>

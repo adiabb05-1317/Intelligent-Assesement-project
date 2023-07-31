@@ -37,7 +37,7 @@ router.post(
       role = "admin";
     }
     if (bcrypt.compare(password, user.password)) {
-      const token = jwt.sign({ id: user._id, role: role }, "adi123");
+      const token = jwt.sign({ id: user._id, role: role,email:email }, "adi123");
       res.status(200).json(token);
     }
   })

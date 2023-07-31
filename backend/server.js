@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/users", require("./Routes/UserRoutes"));
 app.use("/api/questions", require("./Routes/examRoutes"));
+// app.use("")
 app.listen(3001, (req, res) => {
   console.log("sever running on port 3001");
 });

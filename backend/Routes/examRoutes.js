@@ -89,6 +89,15 @@ router.post("/admin/putQuestion", asyncHandler(async (req, res) => {
       res.status(500).send("Error uploading question");
     }
   }));
-  
+  router.get("/admin/getQuestions", asyncHandler(async (req, res) => {
+    try {
+      const subject=req.query.subject;
+      const questions = await Question.find({ subject: subject});
+      res.status(200).json(questions);
+    } catch (error) {
+      console.log("Error getting questions:",error);
+      res.status(500).send("Error getting questions");
+    }
+  }));
   module.exports = router;
   

@@ -1,13 +1,16 @@
-const mongoose = require("mongoose");
+require('dotenv').config(); // Add this at the top of your file
+const mongoose = require('mongoose');
+
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(
-      "mongodb+srv://adi123:abb131705@cluster0.kugtute.mongodb.net/IntelligentAssessment?retryWrites=true&w=majority"
-    );
-    console.log("MongoDB connected");
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('MongoDB Connected');
   } catch (error) {
-    console.log("Error:", error.message);
-   
+    console.error('Error:', error.message);
   }
 };
+
 module.exports = connectDB;

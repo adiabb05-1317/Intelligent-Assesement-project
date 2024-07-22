@@ -5,9 +5,6 @@ import {
   MDBCol,
   MDBCard,
   MDBCardBody,
-  MDBTable,
-  MDBTableHead,
-  MDBTableBody,
   MDBBtn,
   MDBNavbar,
   MDBNavbarBrand,
@@ -20,15 +17,12 @@ import {
 } from "mdb-react-ui-kit";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
+
 const UserDashboard = () => {
   const hist = useNavigate();
   const token = localStorage.getItem("token"); // Get token from localStorage
   const userEmail = jwtDecode(token).email; // Decode token and get userEmail
 
-  const previousTests = [
-    { id: 1, language: "Java", score: 90 },
-    { id: 2, language: "Python", score: 85 },
-  ];
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/";
@@ -38,10 +32,10 @@ const UserDashboard = () => {
   };
 
   return (
-    <div>
-      <MDBNavbar expand="lg" dark bgColor="dark">
+    <div className="bg-light vh-100">
+      <MDBNavbar expand="lg" dark bgColor="dark" className="mb-5">
         <MDBContainer fluid>
-          <MDBNavbarBrand href="#">Dashboard</MDBNavbarBrand>
+          <MDBNavbarBrand className="font-weight-bold">Dashboard</MDBNavbarBrand>
           <MDBNavbarToggler
             type="button"
             data-target="#navbarButtonsExample"
@@ -60,7 +54,7 @@ const UserDashboard = () => {
                 </MDBNavbarLink>
               </MDBNavbarItem>
               <MDBNavbarItem>
-                <MDBNavbarLink href="#">
+                <MDBNavbarLink href="/previousResults">
                   <MDBIcon icon="file-alt" className="me-2" />
                   Your Previous Tests
                 </MDBNavbarLink>
@@ -80,7 +74,7 @@ const UserDashboard = () => {
             </MDBNavbarNav>
             <MDBNavbarNav right>
               <MDBNavbarItem>
-                <MDBBtn color="danger" onClick={handleLogout}>
+                <MDBBtn rounded color="danger" className="px-4" onClick={handleLogout}>
                   Logout
                 </MDBBtn>
               </MDBNavbarItem>
@@ -99,46 +93,22 @@ const UserDashboard = () => {
         </MDBContainer>
       </MDBNavbar>
       <MDBContainer fluid className="p-3">
-        <MDBRow>
+        <MDBRow className="justify-content-center">
           <MDBCol md="6">
-            <MDBCard>
+            <MDBCard className="shadow">
               <MDBCardBody>
-                <h2 className="card-title">Welcome to Your Dashboard!</h2>
-                <p className="card-text">
-                  You can attempt tests in Java and Python.
-                  <br />
-                  Please read the instructions carefully before starting the
-                  test.
+                <h2 className="card-title text-center mb-4 font-weight-bold">Welcome to Your Dashboard!</h2>
+                <p className="card-text text-center mb-4">
+                  You can attempt tests in Java and Python. Please read the instructions carefully before starting the test.
                 </p>
-                <MDBBtn color="primary" onClick={handleTest("java")}>
-                  Start Java Test
-                </MDBBtn>
-                <MDBBtn color="primary" onClick={handleTest("python")}>Start Python Test</MDBBtn>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-          <MDBCol md="6">
-            <MDBCard>
-              <MDBCardBody>
-                <h2 className="card-title">Previous Test Results</h2>
-                <MDBTable striped>
-                  <MDBTableHead>
-                    <tr>
-                      <th>#</th>
-                      <th>Language</th>
-                      <th>Score</th>
-                    </tr>
-                  </MDBTableHead>
-                  <MDBTableBody>
-                    {previousTests.map((test) => (
-                      <tr key={test.id}>
-                        <td>{test.id}</td>
-                        <td>{test.language}</td>
-                        <td>{test.score}</td>
-                      </tr>
-                    ))}
-                  </MDBTableBody>
-                </MDBTable>
+                <div className="d-flex justify-content-between">
+                  <MDBBtn rounded color="primary" className="px-5" onClick={handleTest("java")}>
+                    Start Java Test
+                  </MDBBtn>
+                  <MDBBtn rounded color="secondary" className="px-5" onClick={handleTest("python")}>
+                    Start Python Test
+                  </MDBBtn>
+                </div>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>

@@ -7,7 +7,7 @@ import ExamPortal from './components/ExamPortal';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserDashboard from './components/UserDashBoard'; // Move the import here
 import InstructionPage from './components/InstructionPage';
-
+import PreviousResults from './components/previousResults';
 function App() {
   return (
     <Router>
@@ -19,6 +19,7 @@ function App() {
           <Route path="/UserDashBoard" element={<UserDashboard />} /> {/* Move UserDashboard route here */}
           <Route path="/ExamPortal/:subject" element={<ExamPortal />} />
           <Route path="/InstructionPage/:subject" element={<InstructionPage />} /> {/* Add subject param to the route */}
+          <Route path="/previousResults" element={<PreviousResults />} /> 
         </Routes>
       </div>
     </Router>
